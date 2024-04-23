@@ -36,6 +36,7 @@ public class S01_SourcecodeReadingRecorderDao {
 					INNER JOIN master_category t3 ON t2.catecory_id = t3.category_id
 					INNER JOIN master_status t4 ON t1.status_id = t4.status_id
 					LEFT OUTER JOIN sourcecode_complete_date t5 ON t1.file_id = t5.file_id
+					ORDER BY t1.file_id
 				""";
 
 		sourcecodeList = template.query(selectSql,
