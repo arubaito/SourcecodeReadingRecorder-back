@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sourcecode.resource.S01_PackageResource;
 import com.sourcecode.resource.S01_SourcecodeStatusResource;
 import com.sourcecode.service.S01_SourcecodeReadingRecorderService;
 
@@ -43,4 +44,14 @@ public class S01_SourceCodeReadingRecorderController {
 		return "200";
 	}
 
+	/*
+	 * 「パッケージ名」と「パッケージID」を返却
+	 */
+	@GetMapping("/get-all-package")
+	public List<S01_PackageResource> getAllPackage() {
+
+		List<S01_PackageResource> packageList = service.getAllPackage();
+
+		return packageList;
+	}
 }

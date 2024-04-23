@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.sourcecode.entity.S01_PackageEntity;
 import com.sourcecode.entity.S01_SourceCodeStatusEntity;
 
 @Repository
@@ -79,4 +80,33 @@ public class S01_SourcecodeReadingRecorderDao {
 
 	}
 
+	public List<S01_PackageEntity> getAllPackage() {
+
+		// 返却するリスト
+		List<S01_PackageEntity> packageList = new ArrayList<>();
+
+		// 全ソースファイルを取得する
+		String selectSql = """
+					SELECT t1.package_id, t1.package_name
+					FROM master_package t1
+					ORDER BY t1.package_id
+				""";
+
+		packageList = template.query(selectSql,
+				new RowMapper<S01_PackageEntity>() {
+
+					@Override
+					public S01_PackageEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+						S01_PackageEntity entity = new S01_PackageEntity();
+
+						entity.setPackageId(rs.getInt("package_id"));
+						entity.setPackageName(rs.getString("package_name"));
+
+						return entity;
+					}
+				});
+
+		return packageList;
+	}
 }

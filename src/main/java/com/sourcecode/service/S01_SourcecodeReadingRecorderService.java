@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sourcecode.dao.S01_SourcecodeReadingRecorderDao;
+import com.sourcecode.entity.S01_PackageEntity;
 import com.sourcecode.entity.S01_SourceCodeStatusEntity;
+import com.sourcecode.resource.S01_PackageResource;
 import com.sourcecode.resource.S01_SourcecodeStatusResource;
 
 @Service
@@ -68,5 +70,30 @@ public class S01_SourcecodeReadingRecorderService {
 
 			System.out.println("ソースファイルID%sの状態を更新".formatted(sourceFileId));
 		}
+	}
+
+	/*
+	 * 全ての「パッケージID」と「パッケージ名」を取得してリソースを返却する
+	 */
+	public List<S01_PackageResource> getAllPackage() {
+
+		// APIの呼び出し元に変換するリソース
+		List<S01_PackageResource> resourceList = new ArrayList<S01_PackageResource>();
+
+		// DBからパッケージのリストを取得
+		List<S01_PackageEntity> entityList = dao.getAllPackage();
+
+		// DBから取得したEntityのリストをResourceのリストに変換する
+		entityList.forEach(e -> {
+
+			S01_PackageResource resource = new S01_PackageResource();
+
+			resource.setPackageId(e.getPackageId());
+			resource.setPackageName(e.getPackageName());
+
+			resourceList.add(resource);
+		});
+
+		return resourceList;
 	}
 }
