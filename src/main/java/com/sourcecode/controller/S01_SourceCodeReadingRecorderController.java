@@ -39,7 +39,7 @@ public class S01_SourceCodeReadingRecorderController {
 	public String updateStatus(@RequestParam String sourceFileId, @RequestParam String statusId) {
 
 		service.updateStatus(sourceFileId, statusId);
-		
+
 		return "200";
 	}
 

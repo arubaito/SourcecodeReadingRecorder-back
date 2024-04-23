@@ -66,7 +66,7 @@ public class S01_SourcecodeReadingRecorderService {
 			System.out.println("更新0件");
 		} else {
 
-			System.out.println("%s を更新".formatted(sourceFileId));
+			System.out.println("ソースファイルID%sの状態を更新".formatted(sourceFileId));
 		}
 	}
 }
