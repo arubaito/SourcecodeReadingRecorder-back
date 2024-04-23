@@ -49,4 +49,24 @@ public class S01_SourcecodeReadingRecorderService {
 		return resourceList;
 	}
 
+	/*
+	 * 引数に渡された「ソースファイルID」の状態を「状態ID」で更新する
+	 */
+	public void updateStatus(String sourceFileId, String statusId) {
+
+		// 更新
+		int sourceFileIdInt = Integer.valueOf(sourceFileId);
+		int statusIdInt = Integer.valueOf(statusId);
+
+		int updateCount = dao.updateStatus(sourceFileIdInt, statusIdInt);
+
+		// ログ出力（ロガー面倒なのでとりあえず標準出力に出力）
+		if (updateCount == 0) {
+
+			System.out.println("更新0件");
+		} else {
+
+			System.out.println("%s を更新".formatted(sourceFileId));
+		}
+	}
 }

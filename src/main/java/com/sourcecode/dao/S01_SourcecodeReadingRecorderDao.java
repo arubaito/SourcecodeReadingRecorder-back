@@ -58,6 +58,23 @@ public class S01_SourcecodeReadingRecorderDao {
 				});
 
 		return sourcecodeList;
+	}
+
+	/*
+	 * 引数に渡された
+	 * 「ソースファイルID」の状態を「状態ID」で更新する
+	 */
+	public int updateStatus(int sourceFileId, int statusId) {
+
+		String updateSql = """
+					UPDATE sourcecode_status
+					SET status_id = ?
+					WHERE file_id = ?
+				""";
+
+		int updateCount = template.update(updateSql, statusId, sourceFileId);
+
+		return updateCount;
 
 	}
 

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sourcecode.resource.S01_SourcecodeStatusResource;
@@ -34,10 +35,12 @@ public class S01_SourceCodeReadingRecorderController {
 	/*
 	 * ソースコードの状態を更新する
 	 */
-	// TODO: 処理
-	@GetMapping("/update-status/{statusId}")
-	public void updateStatus() {
+	@GetMapping("/update-status")
+	public String updateStatus(@RequestParam String sourceFileId, @RequestParam String statusId) {
 
+		service.updateStatus(sourceFileId, statusId);
+		
+		return "200";
 	}
 
 }
