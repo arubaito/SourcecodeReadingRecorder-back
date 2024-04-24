@@ -109,4 +109,19 @@ public class S01_SourcecodeReadingRecorderDao {
 
 		return packageList;
 	}
+
+	/*
+	 * 引数に渡された
+	 * 「ソースファイルID」の完了日を更新する
+	 */
+	public int updateCompleteDate(int sourceFileId, java.sql.Date completeDate) {
+
+		String updateSql = """
+					INSERT INTO sourcecode_complete_date (file_id, complete_date) VALUES (?, ?)
+				""";
+
+		int updateCount = template.update(updateSql, sourceFileId, completeDate);
+
+		return updateCount;
+	}
 }

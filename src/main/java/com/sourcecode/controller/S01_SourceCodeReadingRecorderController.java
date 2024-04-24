@@ -54,4 +54,15 @@ public class S01_SourceCodeReadingRecorderController {
 
 		return packageList;
 	}
+
+	/*
+	 * ソースコードの完了日を更新する
+	 */
+	@GetMapping("/update-complete-date")
+	public String updateCompleteDate(@RequestParam String sourceFileId, @RequestParam String completeDate) {
+
+		service.updateCompleteDate(sourceFileId, completeDate);
+
+		return "200";
+	}
 }

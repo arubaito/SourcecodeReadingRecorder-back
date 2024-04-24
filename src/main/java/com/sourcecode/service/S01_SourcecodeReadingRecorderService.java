@@ -96,4 +96,25 @@ public class S01_SourcecodeReadingRecorderService {
 
 		return resourceList;
 	}
+
+	/*
+	 * 引数に渡された「ソースファイルID」の完了日を更新する
+	 */
+	public void updateCompleteDate(String sourceFileId, String completeDateString) {
+
+		// 更新
+		int sourceFileIdInt = Integer.valueOf(sourceFileId);
+		java.sql.Date completeDate = java.sql.Date.valueOf(completeDateString);
+
+		int updateCount = dao.updateCompleteDate(sourceFileIdInt, completeDate);
+
+		// ログ出力（ロガー面倒なのでとりあえず標準出力に出力）
+		if (updateCount == 0) {
+
+			System.out.println("更新0件");
+		} else {
+
+			System.out.println("ソースファイルID%sの完了日を更新".formatted(sourceFileId));
+		}
+	}
 }
