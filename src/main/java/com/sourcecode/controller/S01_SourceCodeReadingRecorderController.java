@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,4 +66,22 @@ public class S01_SourceCodeReadingRecorderController {
 
 		return "200";
 	}
+
+	/*
+	 * 渡されたパッケージIDの「種別」「ソースファイル名」「状態」「完了日」を返却
+	 * 
+	 * CORSの設定については↓参照
+	 * https://b1san-blog.com/post/spring/spring-cors
+	 */
+	@GetMapping("/get-sourcefile")
+	@CrossOrigin // CORSの設定。クライアントサイドに設定したファイルからこのAPIにアクセスするので必要
+	public List<S01_SourcecodeStatusResource> getSourcefileByPackageId(@RequestParam String packageId) {
+
+		System.out.println("get-sourcefile");
+
+		List<S01_SourcecodeStatusResource> sourcecodeList = service.getSourcefileByPackageId(packageId);
+
+		return sourcecodeList;
+	}
+
 }

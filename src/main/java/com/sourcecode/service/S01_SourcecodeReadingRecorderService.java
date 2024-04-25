@@ -117,4 +117,47 @@ public class S01_SourcecodeReadingRecorderService {
 			System.out.println("ソースファイルID%sの完了日を更新".formatted(sourceFileId));
 		}
 	}
+
+	/*
+	 * 指定されたパッケージIDの
+	 * 「ソースファイル名」、「状態」、「種別」、「読了日」
+	 * を取得する
+	 * 
+	 */
+	public List<S01_SourcecodeStatusResource> getSourcefileByPackageId(String packageId) {
+
+		// APIの呼び出し元に返却するリソース
+		List<S01_SourcecodeStatusResource> resourceList = new ArrayList<>();
+
+		// パッケージIDのソースファイルを取得。
+		// パッケージIDが0の場合は全て取得する。
+		int packageIdInt = Integer.valueOf(packageId);
+		List<S01_SourceCodeStatusEntity> entityList;
+
+		if (packageIdInt == 0) {
+
+			entityList = dao.getAllSourcefile();
+		} else {
+
+			entityList = dao.getSourcefileByPackageId(packageIdInt);
+		}
+
+		entityList.forEach(e -> {
+
+			// リストに追加するリソース
+			S01_SourcecodeStatusResource resource = new S01_SourcecodeStatusResource();
+
+			// エンティティからリソースに変換
+			resource.setSourcefileId(e.getSourcefileId());
+			resource.setSourcefileName(e.getSourcefileName());
+			resource.setCategoryId(e.getCategoryId());
+			resource.setStatusId(e.getStatusId());
+			resource.setCompleteDate(e.getCompleteDate());
+
+			// リストに追加
+			resourceList.add(resource);
+		});
+
+		return resourceList;
+	}
 }
